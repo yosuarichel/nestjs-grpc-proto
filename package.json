@@ -1,0 +1,20 @@
+{
+  "name": "nestjs-grpc-proto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yosuarichel/nestjs-grpc-proto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yosuarichel/nestjs-grpc-proto/issues"
+  },
+  "homepage": "https://github.com/yosuarichel/nestjs-grpc-proto#readme"
+}

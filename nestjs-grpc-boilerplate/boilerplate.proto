@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package boilerplate;
+
+service AuthService {
+  rpc CreateBook (CreateBookRequest) returns (Response) {}
+}
+
+message CreateBookRequest {
+  string Name = 1;
+  string Description = 2;
+  string Author = 3;
+  float Price = 4;
+}
+
+message Response {
+  ErrorData Error = 1;
+  int64 CreatedID = 2;
+}
+
+message ErrorData {
+  int32 Status = 1;
+  string Message = 2;
+}
