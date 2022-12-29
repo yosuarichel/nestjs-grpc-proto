@@ -9,8 +9,9 @@ service AuthService {
 message CreateBookRequest {
   string Name = 1;
   string Description = 2;
-  string Author = 3;
-  float Price = 4;
+  float Price = 3;
+  string Author = 4;
+  string Publisher = 5;
 }
 
 message Response {
