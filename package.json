@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/yosuarichel/nestjs-grpc-proto/issues"
   },
-  "homepage": "https://github.com/yosuarichel/nestjs-grpc-proto#readme"
+  "homepage": "https://github.com/yosuarichel/nestjs-grpc-proto#readme",
+  "dependencies": {
+    "ts-proto": "^1.137.0"
+  }
 }
