@@ -3,7 +3,7 @@ syntax = "proto3";
 
 package boilerplate;
 
-service Boilerplate {
+service BoilerplateService {
   rpc CreateBook (CreateBookRequest) returns (Response) {}
 }
 
