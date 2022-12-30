@@ -4,7 +4,7 @@ import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "boilerplate";
 
-/** protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. ./boilerplate/proto/boilerplate.proto */
+/** protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. --ts_proto_opt=fileSuffix=.pb ./src/boilerplate/proto/boilerplate.proto */
 
 export interface CreateBookRequest {
   Name: string;
