@@ -1,1 +1,1 @@
-export * from "./boilerplate/proto/boilerplate.pb";
+export * as boilerplate from "./boilerplate/proto/boilerplate.pb";
