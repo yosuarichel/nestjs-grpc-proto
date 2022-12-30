@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BoilerplateClientImpl = exports.ErrorData = exports.Response = exports.CreateBookRequest = exports.protobufPackage = void 0;
+exports.BoilerplateServiceClientImpl = exports.ErrorData = exports.Response = exports.CreateBookRequest = exports.protobufPackage = void 0;
 const Long = require("long");
 const _m0 = require("protobufjs/minimal");
 exports.protobufPackage = "boilerplate";
@@ -192,9 +192,9 @@ exports.ErrorData = {
         return message;
     },
 };
-class BoilerplateClientImpl {
+class BoilerplateServiceClientImpl {
     constructor(rpc, opts) {
-        this.service = (opts === null || opts === void 0 ? void 0 : opts.service) || "boilerplate.Boilerplate";
+        this.service = (opts === null || opts === void 0 ? void 0 : opts.service) || "boilerplate.BoilerplateService";
         this.rpc = rpc;
         this.CreateBook = this.CreateBook.bind(this);
     }
@@ -204,7 +204,7 @@ class BoilerplateClientImpl {
         return promise.then((data) => exports.Response.decode(new _m0.Reader(data)));
     }
 }
-exports.BoilerplateClientImpl = BoilerplateClientImpl;
+exports.BoilerplateServiceClientImpl = BoilerplateServiceClientImpl;
 var tsProtoGlobalThis = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;
