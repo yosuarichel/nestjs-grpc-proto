@@ -227,15 +227,15 @@ export const ErrorData = {
   },
 };
 
-export interface Boilerplate {
+export interface BoilerplateService {
   CreateBook(request: CreateBookRequest): Promise<Response>;
 }
 
-export class BoilerplateClientImpl implements Boilerplate {
+export class BoilerplateServiceClientImpl implements BoilerplateService {
   private readonly rpc: Rpc;
   private readonly service: string;
   constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "boilerplate.Boilerplate";
+    this.service = opts?.service || "boilerplate.BoilerplateService";
     this.rpc = rpc;
     this.CreateBook = this.CreateBook.bind(this);
   }

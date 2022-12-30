@@ -69,10 +69,10 @@ export declare const ErrorData: {
         Message?: string;
     } & { [K in Exclude<keyof I, keyof ErrorData>]: never; }>(object: I): ErrorData;
 };
-export interface Boilerplate {
+export interface BoilerplateService {
     CreateBook(request: CreateBookRequest): Promise<Response>;
 }
-export declare class BoilerplateClientImpl implements Boilerplate {
+export declare class BoilerplateServiceClientImpl implements BoilerplateService {
     private readonly rpc;
     private readonly service;
     constructor(rpc: Rpc, opts?: {
