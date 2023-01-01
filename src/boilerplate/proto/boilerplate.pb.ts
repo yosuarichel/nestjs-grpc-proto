@@ -14,6 +14,32 @@ export interface CreateBookRequest {
   Publisher: string;
 }
 
+export interface BookListRequest {
+  Filter: BookListRequestFilter | undefined;
+}
+
+export interface BookListRequestFilter {
+  Name: string;
+}
+
+export interface BookListResponse {
+  Error: ErrorData | undefined;
+  Data: Book[];
+}
+
+export interface Book {
+  ID: number;
+  Name: string;
+  Description: string;
+  Price: number;
+  Author: string;
+  Publisher: string;
+  CreatedAt: string;
+  CreatedBy: number;
+  UpdatedAt: string;
+  UpdatedBy: number;
+}
+
 export interface Response {
   Error: ErrorData | undefined;
   CreatedID: number;
@@ -105,6 +131,308 @@ export const CreateBookRequest = {
     message.Price = object.Price ?? 0;
     message.Author = object.Author ?? "";
     message.Publisher = object.Publisher ?? "";
+    return message;
+  },
+};
+
+function createBaseBookListRequest(): BookListRequest {
+  return { Filter: undefined };
+}
+
+export const BookListRequest = {
+  encode(message: BookListRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.Filter !== undefined) {
+      BookListRequestFilter.encode(message.Filter, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BookListRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBookListRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Filter = BookListRequestFilter.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BookListRequest {
+    return { Filter: isSet(object.Filter) ? BookListRequestFilter.fromJSON(object.Filter) : undefined };
+  },
+
+  toJSON(message: BookListRequest): unknown {
+    const obj: any = {};
+    message.Filter !== undefined &&
+      (obj.Filter = message.Filter ? BookListRequestFilter.toJSON(message.Filter) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BookListRequest>, I>>(object: I): BookListRequest {
+    const message = createBaseBookListRequest();
+    message.Filter = (object.Filter !== undefined && object.Filter !== null)
+      ? BookListRequestFilter.fromPartial(object.Filter)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseBookListRequestFilter(): BookListRequestFilter {
+  return { Name: "" };
+}
+
+export const BookListRequestFilter = {
+  encode(message: BookListRequestFilter, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.Name !== "") {
+      writer.uint32(10).string(message.Name);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BookListRequestFilter {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBookListRequestFilter();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Name = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BookListRequestFilter {
+    return { Name: isSet(object.Name) ? String(object.Name) : "" };
+  },
+
+  toJSON(message: BookListRequestFilter): unknown {
+    const obj: any = {};
+    message.Name !== undefined && (obj.Name = message.Name);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BookListRequestFilter>, I>>(object: I): BookListRequestFilter {
+    const message = createBaseBookListRequestFilter();
+    message.Name = object.Name ?? "";
+    return message;
+  },
+};
+
+function createBaseBookListResponse(): BookListResponse {
+  return { Error: undefined, Data: [] };
+}
+
+export const BookListResponse = {
+  encode(message: BookListResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.Error !== undefined) {
+      ErrorData.encode(message.Error, writer.uint32(10).fork()).ldelim();
+    }
+    for (const v of message.Data) {
+      Book.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BookListResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBookListResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.Error = ErrorData.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.Data.push(Book.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BookListResponse {
+    return {
+      Error: isSet(object.Error) ? ErrorData.fromJSON(object.Error) : undefined,
+      Data: Array.isArray(object?.Data) ? object.Data.map((e: any) => Book.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: BookListResponse): unknown {
+    const obj: any = {};
+    message.Error !== undefined && (obj.Error = message.Error ? ErrorData.toJSON(message.Error) : undefined);
+    if (message.Data) {
+      obj.Data = message.Data.map((e) => e ? Book.toJSON(e) : undefined);
+    } else {
+      obj.Data = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BookListResponse>, I>>(object: I): BookListResponse {
+    const message = createBaseBookListResponse();
+    message.Error = (object.Error !== undefined && object.Error !== null)
+      ? ErrorData.fromPartial(object.Error)
+      : undefined;
+    message.Data = object.Data?.map((e) => Book.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseBook(): Book {
+  return {
+    ID: 0,
+    Name: "",
+    Description: "",
+    Price: 0,
+    Author: "",
+    Publisher: "",
+    CreatedAt: "",
+    CreatedBy: 0,
+    UpdatedAt: "",
+    UpdatedBy: 0,
+  };
+}
+
+export const Book = {
+  encode(message: Book, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.ID !== 0) {
+      writer.uint32(8).int64(message.ID);
+    }
+    if (message.Name !== "") {
+      writer.uint32(18).string(message.Name);
+    }
+    if (message.Description !== "") {
+      writer.uint32(26).string(message.Description);
+    }
+    if (message.Price !== 0) {
+      writer.uint32(37).float(message.Price);
+    }
+    if (message.Author !== "") {
+      writer.uint32(42).string(message.Author);
+    }
+    if (message.Publisher !== "") {
+      writer.uint32(50).string(message.Publisher);
+    }
+    if (message.CreatedAt !== "") {
+      writer.uint32(58).string(message.CreatedAt);
+    }
+    if (message.CreatedBy !== 0) {
+      writer.uint32(64).int64(message.CreatedBy);
+    }
+    if (message.UpdatedAt !== "") {
+      writer.uint32(74).string(message.UpdatedAt);
+    }
+    if (message.UpdatedBy !== 0) {
+      writer.uint32(80).int64(message.UpdatedBy);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): Book {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBook();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.ID = longToNumber(reader.int64() as Long);
+          break;
+        case 2:
+          message.Name = reader.string();
+          break;
+        case 3:
+          message.Description = reader.string();
+          break;
+        case 4:
+          message.Price = reader.float();
+          break;
+        case 5:
+          message.Author = reader.string();
+          break;
+        case 6:
+          message.Publisher = reader.string();
+          break;
+        case 7:
+          message.CreatedAt = reader.string();
+          break;
+        case 8:
+          message.CreatedBy = longToNumber(reader.int64() as Long);
+          break;
+        case 9:
+          message.UpdatedAt = reader.string();
+          break;
+        case 10:
+          message.UpdatedBy = longToNumber(reader.int64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Book {
+    return {
+      ID: isSet(object.ID) ? Number(object.ID) : 0,
+      Name: isSet(object.Name) ? String(object.Name) : "",
+      Description: isSet(object.Description) ? String(object.Description) : "",
+      Price: isSet(object.Price) ? Number(object.Price) : 0,
+      Author: isSet(object.Author) ? String(object.Author) : "",
+      Publisher: isSet(object.Publisher) ? String(object.Publisher) : "",
+      CreatedAt: isSet(object.CreatedAt) ? String(object.CreatedAt) : "",
+      CreatedBy: isSet(object.CreatedBy) ? Number(object.CreatedBy) : 0,
+      UpdatedAt: isSet(object.UpdatedAt) ? String(object.UpdatedAt) : "",
+      UpdatedBy: isSet(object.UpdatedBy) ? Number(object.UpdatedBy) : 0,
+    };
+  },
+
+  toJSON(message: Book): unknown {
+    const obj: any = {};
+    message.ID !== undefined && (obj.ID = Math.round(message.ID));
+    message.Name !== undefined && (obj.Name = message.Name);
+    message.Description !== undefined && (obj.Description = message.Description);
+    message.Price !== undefined && (obj.Price = message.Price);
+    message.Author !== undefined && (obj.Author = message.Author);
+    message.Publisher !== undefined && (obj.Publisher = message.Publisher);
+    message.CreatedAt !== undefined && (obj.CreatedAt = message.CreatedAt);
+    message.CreatedBy !== undefined && (obj.CreatedBy = Math.round(message.CreatedBy));
+    message.UpdatedAt !== undefined && (obj.UpdatedAt = message.UpdatedAt);
+    message.UpdatedBy !== undefined && (obj.UpdatedBy = Math.round(message.UpdatedBy));
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<Book>, I>>(object: I): Book {
+    const message = createBaseBook();
+    message.ID = object.ID ?? 0;
+    message.Name = object.Name ?? "";
+    message.Description = object.Description ?? "";
+    message.Price = object.Price ?? 0;
+    message.Author = object.Author ?? "";
+    message.Publisher = object.Publisher ?? "";
+    message.CreatedAt = object.CreatedAt ?? "";
+    message.CreatedBy = object.CreatedBy ?? 0;
+    message.UpdatedAt = object.UpdatedAt ?? "";
+    message.UpdatedBy = object.UpdatedBy ?? 0;
     return message;
   },
 };
@@ -229,6 +557,7 @@ export const ErrorData = {
 
 export interface BoilerplateService {
   CreateBook(request: CreateBookRequest): Promise<Response>;
+  BookList(request: BookListRequest): Promise<BookListResponse>;
 }
 
 export class BoilerplateServiceClientImpl implements BoilerplateService {
@@ -238,11 +567,18 @@ export class BoilerplateServiceClientImpl implements BoilerplateService {
     this.service = opts?.service || "boilerplate.BoilerplateService";
     this.rpc = rpc;
     this.CreateBook = this.CreateBook.bind(this);
+    this.BookList = this.BookList.bind(this);
   }
   CreateBook(request: CreateBookRequest): Promise<Response> {
     const data = CreateBookRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateBook", data);
     return promise.then((data) => Response.decode(new _m0.Reader(data)));
+  }
+
+  BookList(request: BookListRequest): Promise<BookListResponse> {
+    const data = BookListRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "BookList", data);
+    return promise.then((data) => BookListResponse.decode(new _m0.Reader(data)));
   }
 }
 
