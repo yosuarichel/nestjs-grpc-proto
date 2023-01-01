@@ -5,6 +5,7 @@ package boilerplate;
 
 service BoilerplateService {
   rpc CreateBook (CreateBookRequest) returns (Response) {}
+  rpc BookList (BookListRequest) returns (BookListResponse) {}
 }
 
 message CreateBookRequest {
@@ -13,6 +14,32 @@ message CreateBookRequest {
   float Price = 3;
   string Author = 4;
   string Publisher = 5;
+}
+
+message BookListRequest {
+  BookListRequestFilter Filter = 1;
+}
+
+message BookListRequestFilter {
+  string Name = 1;
+}
+
+message BookListResponse {
+  ErrorData Error = 1;
+  repeated Book Data = 2;
+}
+
+message Book {
+  int64 ID = 1;
+  string Name = 2;
+  string Description = 3;
+  float Price = 4;
+  string Author = 5;
+  string Publisher = 6;
+  string CreatedAt = 7;
+  int64 CreatedBy = 8;
+  string UpdatedAt = 9;
+  int64 UpdatedBy = 10;
 }
 
 message Response {
